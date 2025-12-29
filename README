@@ -1,0 +1,15 @@
+My first ML Project for a movie recommendation algorithm
+
+Libraries in env;
+- tensorflow
+- pytorch
+- numpy
+- pandas
+- scikit-learn
+
+
+env is "firstMLProject"
+
+conda activate firstMLProject
+
+conda deactivate

@@ -1,12 +1,14 @@
-My first ML Project for a movie recommendation algorithm
+My first ML Projects
 
-Libraries in env;
+To complete these projects I have setup miniconda and have installed the following librarbies in my env:
+
 - tensorflow
 - pytorch
 - numpy
 - pandas
 - scikit-learn
 
+Before writing any code ensure the environment is activated so the code can be interpretted.
 
 env is "firstMLProject"
 

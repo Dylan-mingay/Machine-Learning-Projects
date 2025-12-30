@@ -2,6 +2,8 @@ import movie_recommendation_data_analysis as mrda
 import numpy as np 
 from sklearn.model_selection import train_test_split
 from sklearn.naive_bayes import MultinomialNB
+from move_recommendation_performance_analysis import analyze_performance, receiver_operating_characteristic
+from movie_recommendation_cross_validation import cross_validate_model, train_best_model
 
 df, n_users, n_movies = mrda.load_movie_ratings_data()
 data, movie_id_map = mrda.load_user_rating_data(df, n_users, n_movies)
@@ -25,3 +27,9 @@ print(prediction[:10])
 
 accuracy = clf.score(X_test, Y_test)
 print(f'The accuracy is: {accuracy*100:.1f}%')
+
+analyze_performance(Y_test, prediction)
+receiver_operating_characteristic(Y_test, prediction_probabilities)
+
+cross_validate_model(clf, X, Y, k=5)
+best_clf = train_best_model(X_train, Y_train)

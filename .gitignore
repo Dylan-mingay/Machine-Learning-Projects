@@ -2,3 +2,5 @@ first_ml_project/data/ml-1m.zip
 first_ml_project/data/movies.dat
 first_ml_project/data/users.dat
 first_ml_project/data/ratings.dat
+first_ml_project/src/mvr_ch2.py
+first_ml_project/src/__pycache__/movie_recommendation_data_analysis.cpython-310.pyc

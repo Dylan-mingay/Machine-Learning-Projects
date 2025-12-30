@@ -1,5 +1,8 @@
 My first ML Projects
 
+I am following the steps of the book "python machine learning by example"
+The strutcure in which I write the code should be amended and made cleaner once complete
+
 To complete these projects I have setup miniconda and have installed the following librarbies in my env:
 
 - tensorflow

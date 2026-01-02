@@ -1,6 +1,7 @@
 import numpy as np
 from information_gain import weighted_impurity
 
+
 def split_node(x, y, index, value):
     """
     Splits the dataset into two groups based on the given feature index and value.
@@ -102,3 +103,74 @@ def split(node, max_depth, min_size, depth, criterion):
         else:
             node['left'] = result
             split(node['left'], max_depth, min_size, depth + 1, criterion)
+
+def train_tree(X_train, y_train, max_depth=5, min_size=10, criterion='gini'):
+    '''
+    Train a decision tree classifier.
+
+    :param X_train: Feature dataset for training.
+    :param y_train: Labels for training dataset.
+    :param max_depth: Maximum depth of the tree.
+    :param min_size: Minimum number of samples required to split a node.
+    :param criterion: Criterion to measure the quality of a split ('gini' or 'entropy').
+    :return: Root node of the trained decision tree.
+    '''
+    X = np.array(X_train)
+    y = np.array(y_train)
+    root = get_best_split(X, y, criterion)
+    split(root, max_depth, min_size, 1, criterion)
+    return root
+
+def visualise_tree(node, depth=0, CONDITION=None):
+    if isinstance(node, dict):
+        if node['value'].dtype.kind in ['i', 'f']:
+            condition = CONDITION['numerical']
+        else:
+            condition = CONDITION['categorical']
+        print('{}|- X{} {} {}'.format( depth * ' ', node['index'] + 1, condition['no'], node['value']))
+        if 'left' in node:
+            visualise_tree(node['left'], depth + 1, CONDITION)
+
+        print('{}|- X{} {} {}'.format( depth * ' ', node['index'] + 1, condition['yes'], node['value']))
+        if 'right' in node:
+            visualise_tree(node['right'], depth + 1, CONDITION)
+    else:
+        print(f"{depth * ' '}[{node}]")
+
+def main():
+    X_train = [['tech', 'professional'],
+           ['fashion', 'student'],
+           ['fashion', 'professional'],
+           ['sports', 'student'],
+           ['tech', 'student'],
+           ['tech', 'retired'],
+           ['sports', 'professional']]
+    y_train = [1, 0, 0, 0, 1, 0, 1]
+
+    tree = train_tree(X_train, y_train, max_depth=2, min_size=2, criterion='gini')
+    print(tree)
+
+    CONDITION = {'numerical': {'yes': '>=', 'no': '<'},
+             'categorical': {'yes': 'is', 'no': 'is not'}}
+    
+    visualise_tree(tree, CONDITION=CONDITION)
+
+    # Test with numerical data
+    X_train_n = [[6, 7],
+           [2, 4],
+           [7, 2],
+           [3, 6],
+           [4, 7],
+           [5, 2],
+           [1, 6],
+           [2, 0],
+           [6, 3],
+           [4, 1]]
+
+    y_train_n = [0,0,0,0,0,1,1,1,1,1]
+    tree_n = train_tree(X_train_n, y_train_n, max_depth=2, min_size=2, criterion='gini')
+    print(tree_n)
+    visualise_tree(tree_n, CONDITION=CONDITION)
+
+if __name__ == "__main__":
+    main()

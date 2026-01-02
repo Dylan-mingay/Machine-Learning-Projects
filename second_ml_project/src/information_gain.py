@@ -1,7 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 criterion_function = {'gini': gini_impurity, 'entropy': entropy}
 # information gain calculation works out the entropy of a set of labels
 def information_gain(pos_fractions, labels):
